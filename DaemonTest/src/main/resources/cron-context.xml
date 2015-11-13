@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/task
+		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:daemon.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+<!--
+ 	<bean id="wasCronTask" class="com.skt.tservice.cron.was.restart.logic.WasCron"/>
+	<bean id="wasStartCronTask" class="com.skt.tservice.cron.was.restart.logic.WasStartCron"/>
+ -->
+ 
+  	<bean id="testCron" class="com.mnlsolution.chime.cron.task.logic.TestCron"/>
+	
+	<bean name="threadFactory" class="com.mnlsolution.chime.common.util.ThreadFactoryUtils">
+		<constructor-arg type="java.lang.String" value="WAS"/>
+		<constructor-arg type="boolean" value="false"/>
+		<constructor-arg type="int" value="5"/>
+	</bean>
+	
+	<bean name="rejectedExecutionHandler" class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+	
+	<bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+		<property name="poolSize" value="2"/>
+		<property name="waitForTasksToCompleteOnShutdown" value="true"/>
+		<property name="rejectedExecutionHandler" ref="rejectedExecutionHandler"/>
+		<property name="threadFactory" ref="threadFactory"/>
+	</bean>
+	
+	<task:scheduled-tasks scheduler="taskScheduler">
+	 		<task:scheduled ref="testCron" method="worker" cron="${test.cron.task}"/>
+<!--
+ 		<task:scheduled ref="wasCronTask" method="work" cron="${was.cron.task}"/>
+		<task:scheduled ref="wasStartCronTask" method="work" cron="${was.start.cron.task}"/>
+ -->	
+ </task:scheduled-tasks>
+	
+	
+</beans>
