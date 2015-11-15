@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="camp.DbMapper">
+
+	<!-- <cache readOnly="true" flushInterval="6000000" size="512" eviction="FIFO" /> -->
+    
+    
+	<select id="selectSvcMgmtNum" resultType="java.lang.Integer" parameterType="java.lang.String">
+	SELECT COUNT(SVC_MGMT_NUM) AS CNT FROM TLB_CUST
+	WHERE SVC_MGMT_NUM = #{svcMgmtNum, jdbcType=VARCHAR} AND RGT_ST_CD = '01'
+	</select>
+    
+    
+	<insert id="insertCampTarget" parameterType="com.skt.tservice.camp.dto.CampTargetDto">
+	INSERT INTO TLB_CAMP_TARGET(
+		MSG_NO,
+		ACTIVE_CD,
+		SVC_MGMT_NUM,
+		MEM_ST_CD,
+		REG_ID,
+		REG_DATE)
+	VALUES(
+		#{msgNo, jdbcType=INTEGER},
+		#{activeId, jdbcType=VARCHAR},
+		#{svcMgmtNum, jdbcType=VARCHAR},
+		#{memStCd, jdbcType=CHAR},
+		'USER',
+		SYSDATE)
+	</insert>
+	
+	
+	<select id="selectCount" resultType="java.lang.Integer">
+	SELECT COUNT(SVC_MGMT_NUM) AS CNT FROM TLB_CAMP_TARGET
+	</select>
+	
+    
+</mapper>

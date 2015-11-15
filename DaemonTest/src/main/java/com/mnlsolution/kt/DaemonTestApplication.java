@@ -21,8 +21,8 @@ public class DaemonTestApplication {
         
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext( CONFIG_LOCATIONS );
         context.registerShutdownHook( );
-        
-
-        
     }
+    
+    
+    
 }
