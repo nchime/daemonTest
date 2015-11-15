@@ -14,8 +14,6 @@ public class TestService {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
 	/**
 	 * 시간 로그 출력 테스트  
 	 */
@@ -23,8 +21,6 @@ public class TestService {
 		Date date = new Date(); 
 		logger.info(">>>>>>>>>>>> {}", date.toString()  );
 	}
-	
-	
 	
 	/**
 	 *	파일 업로드 상태 체크  

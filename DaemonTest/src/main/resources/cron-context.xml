@@ -22,9 +22,9 @@
 	<bean id="wasStartCronTask" class="com.skt.tservice.cron.was.restart.logic.WasStartCron"/>
  -->
  
-  	<bean id="testCron" class="com.mnlsolution.chime.cron.task.logic.TestCron"/>
+  	<bean id="testCron" class="com.mnlsolution.kt.cron.task.logic.TestCron"/>
 	
-	<bean name="threadFactory" class="com.mnlsolution.chime.common.util.ThreadFactoryUtils">
+	<bean name="threadFactory" class="com.mnlsolution.kt.common.util.ThreadFactoryUtils">
 		<constructor-arg type="java.lang.String" value="WAS"/>
 		<constructor-arg type="boolean" value="false"/>
 		<constructor-arg type="int" value="5"/>
